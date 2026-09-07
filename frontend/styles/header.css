@@ -1,0 +1,171 @@
+/* ===== Global header variables ===== */
+:root{
+  --header-h: 72px;
+  --header-pad-x: 28px;
+  --header-gap: 24px;
+  --header-link-size: 12px;
+  --header-link-color: #e6f0ff;
+}
+
+/* กันคอนเทนต์โดนเฮดเดอร์ทับทุกหน้า และปิดการเลื่อน */
+html, body { 
+  scroll-behavior: smooth; 
+  height: 100vh;
+  overflow: hidden;
+}
+body{ 
+  padding-top: var(--header-h); 
+}
+
+/* ===== Header / Navbar (fixed, เหมือนกันทุกหน้า) ===== */
+header.navbar{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--header-pad-x);
+  z-index: 1000;
+  /* โปร่งใสบนพื้นหลังรูป แต่ยังอ่านง่าย */
+  backdrop-filter: saturate(120%) blur(4px);
+}
+
+header.navbar .logo{
+  display: flex;
+  align-items: baseline;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 0 rgba(0,0,0,.25);
+  user-select: none;
+}
+header.navbar .logo .arcade-brand{ color:#ffffff; }
+
+/* Logo centered for login/register pages */
+header.navbar .logo-centered{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 0 2px 0 rgba(0,0,0,.25);
+  user-select: none;
+}
+header.navbar .logo-centered .arcade-brand{ color:#ffffff; }
+
+header.navbar .menu{
+  display: flex;
+  align-items: center;
+  gap: var(--header-gap);
+  font-size: var(--header-link-size);
+  letter-spacing: .4px;
+}
+
+header.navbar .menu a{
+  color: var(--header-link-color);
+  text-decoration: none;
+  opacity: .95;
+}
+
+header.navbar .menu a:hover{
+  color: #71ddff;
+  text-decoration: none;
+}
+
+/* Disabled menu items on login page */
+header.navbar .menu a.menu-disabled{
+  color: rgba(230, 240, 255, 0.4);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+header.navbar .menu a.menu-disabled:hover{
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+/* User email display */
+header.navbar .menu .user-email{
+  color: var(--header-link-color);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+/* Logout button styles */
+.logout {
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1001;
+}
+
+.logout:hover {
+  color: #ff3b3b !important;
+}
+
+.logout.escaped1 {
+  position: fixed !important;
+  top: 40% !important;
+  left: 200px !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255, 59, 59, 0.9) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 15px rgba(255, 59, 59, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  animation: escapeAnimation1 0.5s ease-out !important;
+}
+
+.logout.escaped2 {
+  position: fixed !important;
+  top: 70% !important;
+  right: 650px !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255, 59, 59, 0.9) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 15px rgba(255, 59, 59, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  animation: escapeAnimation2 0.5s ease-out !important;
+}
+
+@keyframes escapeAnimation1 {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes escapeAnimation2 {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(-10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* จอเล็ก: ลดช่องไฟนิดหน่อย */
+@media (max-width: 980px){
+  :root{ --header-h: 64px; --header-pad-x: 20px; --header-gap: 18px; }
+  header.navbar .logo{ font-size: 28px; }
+}

@@ -1,0 +1,16 @@
+%% System Architecture (Component View)
+flowchart TB
+    U[User\n(Web Browser)]
+    FE[Next.js Frontend\nReact App Router\n(frontend/app/*)]
+    BE[FastAPI Backend\nAuth/RBAC, Business Logic\nbackend/app/main.py]
+    DB[(PostgreSQL / SQLite)\nSQLAlchemy Models\nbackend/app/models.py\nTables: users, credits, game1, game2, reports]
+
+    U <--> |HTTPS GET/POST| FE
+    FE --> |REST (JSON)\n/login, /me, /balance, /deposit, /withdraw\n/api/game1/*, /api/game2/*, /api/submit-report, /reports| BE
+    BE --> |ORM Queries\n(Validate, Insert, Update)| DB
+    BE -.-> |Set/Read HttpOnly Cookie\n(SameSite=Lax) on /login| U
+
+    classDef svc fill:#eef,stroke:#446,stroke-width:1px;
+    classDef data fill:#efe,stroke:#464,stroke-width:1px;
+    class FE,BE svc;
+    class DB data;
